@@ -17,10 +17,23 @@ model User{
     firstName String
     lastName String
     imageUrl String?
+    account Account[]
 }
 
 model Post {
   id        Int      @id @default(autoincrement())
   name      String
   createdAt DateTime @default(now())
+}
+
+
+model Account {
+    id String @id @default(cuid())
+    userId String
+
+    accessToken String @unique
+    emailAddress String
+    name String
+
+    user User @relation(fields: [userId], references: [id])
 }
